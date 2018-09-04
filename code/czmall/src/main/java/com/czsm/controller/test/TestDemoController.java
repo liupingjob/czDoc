@@ -1,6 +1,5 @@
 package com.czsm.controller.test;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -17,11 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.aliyun.oss.OSSClient;
-import com.aliyun.oss.model.PutObjectResult;
 import com.czsm.entity.buyer.BuyerUserInfo;
 import com.czsm.service.commons.RedisService;
 import com.czsm.service.test.TestService;
+import com.czsm.util.AliyunOSSUtil;
 import com.czsm.util.FtpUtil;
 
 /**
@@ -93,7 +91,6 @@ public class TestDemoController {
 		List<BuyerUserInfo> list = testService.findUserPager(3, 3);
 		return list;
 	}
- 
 
 	/**
 	 * 测试FTP传送图片
@@ -114,11 +111,24 @@ public class TestDemoController {
 			filePath = fileName;
 		}
 
-
-
-
 		System.out.println(filePath); // 该路径图片名称，前端框架可用ngnix指定的路径+filePath,即可访问到ngnix图片服务器中的图片
 		return null;
 	}
 
+	/**
+	 * 测试OSS传送图片
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping("testOss")
+	public String testOss(@RequestParam("file") MultipartFile file,Model model) throws IOException {
+		String fileName = file.getOriginalFilename();
+		InputStream inputStream = file.getInputStream();
+		String path=AliyunOSSUtil.upload(inputStream,"czsm/"+fileName);
+
+		System.out.println(path); // 该路径图片名称，前端框架可用ngnix指定的路径+filePath,即可访问到ngnix图片服务器中的图片
+		model.addAttribute("path",path);
+		return "test";
+	}
 }

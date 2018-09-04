@@ -10,7 +10,6 @@ import sun.misc.BASE64Encoder;
  * @author Mac(刘平) 20180804
  *
  */
-@SuppressWarnings("restriction")
 public class MD5Util {
 	/**
 	 * 加密方法
