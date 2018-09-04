@@ -52,11 +52,9 @@ public class BuyerLoginServiceImpl implements BuyerLoginService{
 	 * 登录
 	 */
 	@Override
-	public BuyerUserInfo login(BuyerUserInfo info  ) {
-					
+	public BuyerUserInfo login(BuyerUserInfo info  ) {			
 		//获得数据密码
-		return loginDao.findUserByUsername(info);//查出该用户的所有信息
-		 
+		return loginDao.findUserByUsername(info);//查出该用户的所有信息 
 	}
 	
 	/**

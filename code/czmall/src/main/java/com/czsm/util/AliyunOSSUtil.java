@@ -32,7 +32,6 @@ public class AliyunOSSUtil {
 	/**
 	 * 方法描述:上传文件 默认传到czsm文件夹
 	 * 
-	 * @author leon 2016年12月16日 上午11:40:34
 	 * @param file 文件对象
 	 * @return 文件访问路径
 	 */
@@ -73,7 +72,7 @@ public class AliyunOSSUtil {
 	/**
 	 * 方法描述:上传文件
 	 * 
-	 * @author leon 2016年12月26日 下午3:33:13
+	 * @author Mac
 	 * @param inputStream 文件流
 	 * @return
 	 * @throws FileNotFoundException
@@ -110,15 +109,15 @@ public class AliyunOSSUtil {
 		return null;
 
 	}
+
 	/**
 	 * 方法描述:上传文件
 	 * 
-	 * @author leon 2016年12月26日 下午3:33:13
 	 * @param inputStream 文件流
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	public static String upload(InputStream inputStream,String path) throws FileNotFoundException {
+	public static String upload(InputStream inputStream, String path) throws FileNotFoundException {
 		if (inputStream == null) {
 			return null;
 		}
@@ -133,7 +132,7 @@ public class AliyunOSSUtil {
 				ossClient.createBucket(createBucketRequest);
 			}
 			// 创建文件路径
-			String fileUrl = path+"";
+			String fileUrl = path + "";
 			// 上传文件
 			PutObjectResult result = ossClient.putObject(new PutObjectRequest(BUCKET_NAME, fileUrl, inputStream));
 			if (null != result) {
