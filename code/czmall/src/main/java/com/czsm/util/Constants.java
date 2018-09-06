@@ -28,5 +28,8 @@ public class Constants {
 
 	public static final int LOGIN_COUNT = 3;//登录的次数
 	public static final String LOGIN_COUNT_MSG = "loginCount";//登录的次数
+	
+	public static  final int VCODE_WIDE=100;  //图形验证码图片的宽度
+	public static  final int VCODE_HEIGHT=50;  //图形验证码图片的高度
 
 }
