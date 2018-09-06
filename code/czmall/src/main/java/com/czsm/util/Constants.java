@@ -7,6 +7,8 @@ package com.czsm.util;
  *
  */
 public class Constants {
+	public static final String KAFKA_TOPIC = "czsm"; //账号错误
+	
 	public static final String ACCOUNT_ERROR = "accountError"; //账号错误
 	public static final String ACCOUNT_NO_EXIST = "accountNoExist";  //账号不存在
 	public static final String ACCOUNT_EXIST = "accountExist";  //账号存在
@@ -31,5 +33,7 @@ public class Constants {
 	
 	public static  final int VCODE_WIDE=100;  //图形验证码图片的宽度
 	public static  final int VCODE_HEIGHT=50;  //图形验证码图片的高度
+	
+	
 
 }

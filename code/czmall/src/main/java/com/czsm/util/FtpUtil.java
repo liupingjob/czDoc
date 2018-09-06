@@ -5,7 +5,11 @@ import java.io.InputStream;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
-
+/**
+ * FTP工具类
+ * @author Mac(刘平)
+ *
+ */
 public class FtpUtil {
 	// ftp服务器ip地址
 	private static final String FTP_ADDRESS = "192.168.1.110";
