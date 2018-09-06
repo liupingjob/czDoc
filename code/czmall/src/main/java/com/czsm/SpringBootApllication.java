@@ -4,16 +4,21 @@ import java.util.Properties;
 
 import org.jboss.logging.Logger;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.czsm.config.CorsFilter;
+import com.czsm.util.KafkaUtil;
 import com.github.pagehelper.PageHelper;
 
 /**
@@ -26,6 +31,7 @@ import com.github.pagehelper.PageHelper;
 @EnableTransactionManagement
 @EnableCaching
 @EnableRedisHttpSession
+@EnableScheduling
 public class SpringBootApllication {
 	private static Logger logger = Logger.getLogger(SpringBootApllication.class);
 
@@ -67,6 +73,26 @@ public class SpringBootApllication {
 		return registration;
 	}
 
-	 
+	/**
+	 * Kafka设置
+	 */
+	@Autowired
+	private KafkaUtil kafkaSender;
+
+	// 然后每隔1分钟执行一次
+	@Scheduled(fixedRate = 1000 * 1000)
+	public void testKafka() throws Exception {
+		kafkaSender.sendTest();
+	}
+
+	/**
+	 * 监听Kafka中的 test主题,有消息就读取
+	 * 
+	 * @param message
+	 */
+	@KafkaListener(topics = { "test" })
+	public void consumer(String message) {
+		logger.info("test topic message : "+ message);
+	}
 
 }
