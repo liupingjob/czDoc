@@ -80,8 +80,8 @@ public class CommonsController {
 	 */
 	@RequestMapping("buyerSendSmsVcode")
 	@ResponseBody
-	public String sentSms(String phoneNum, HttpSession session) {
-		// 取得验证码四位随机数
+	public StringMsg sentSms(String phoneNum, HttpSession session) {
+		// 取得验证码六位随机数
 		String vcode = NumberUtil.getRandomNum(Constants.VCODE_LENGTH);
 		// 发送验证码
 		SmsUtil.sendSms(phoneNum, vcode);
@@ -90,7 +90,7 @@ public class CommonsController {
 		// 新验证码存入session
 		session.setAttribute(Constants.SMS_VERIFY_CODE, vcode);
 		// 返回成功信息
-		return Constants.VCODE_SENT;
+		return StringMsg.setMsgs(Constants.VCODE_SENT);
 	}
 
 	/**
@@ -101,9 +101,9 @@ public class CommonsController {
 	 */
 	@RequestMapping("buyerSendMailVcode")
 	@ResponseBody
-	public String sentMail(String mailUrl, HttpSession session) {
+	public StringMsg sentMail(String mailUrl, HttpSession session) {
 		MailUtil.sendMail(mailUrl, NumberUtil.getRandomNum(Constants.VCODE_LENGTH));
-		// 取得验证码四位随机数
+		// 取得验证码六位随机数
 		String vcode = NumberUtil.getRandomNum(Constants.VCODE_LENGTH);
 		// 发送验证码
 		MailUtil.sendMail(mailUrl, vcode);
@@ -113,7 +113,7 @@ public class CommonsController {
 		// 新验证码存入session
 		session.setAttribute(Constants.MAIL_VERIFY_CODE, vcode);
 		// 返回成功信息
-		return Constants.VCODE_SENT;
+		return StringMsg.setMsgs(Constants.VCODE_SENT);
 	}
 
 	/**
@@ -124,11 +124,11 @@ public class CommonsController {
 	 */
 	@RequestMapping("validateSmsVCode")
 	@ResponseBody
-	public String validateSmsVCode(String vcode, HttpSession session) {
+	public StringMsg validateSmsVCode(String vcode, HttpSession session) {
 		// 从session中拿到手机验证码
 		String realVcode = (String) session.getAttribute(Constants.SMS_VERIFY_CODE);
 		// 判断是否相等
-		return vcode.equals(realVcode) ? Constants.VCODE_CORRECT : Constants.VCODE_ERROR;
+		return vcode.equals(realVcode) ? StringMsg.setMsgs(Constants.VCODE_CORRECT) : StringMsg.setMsgs(Constants.VCODE_ERROR);
 	}
 
 	/**
@@ -139,11 +139,11 @@ public class CommonsController {
 	 */
 	@RequestMapping("validateMailVCode")
 	@ResponseBody
-	public String validateMailVCode(String vcode, HttpSession session) {
+	public StringMsg validateMailVCode(String vcode, HttpSession session) {
 		// 从session中拿到邮箱验证码
 		String realVcode = (String) session.getAttribute(Constants.MAIL_VERIFY_CODE);
 		// 判断是否相等
-		return vcode.equals(realVcode) ? Constants.VCODE_CORRECT : Constants.VCODE_ERROR;
+		return vcode.equals(realVcode) ? StringMsg.setMsgs(Constants.VCODE_CORRECT) : StringMsg.setMsgs(Constants.VCODE_ERROR);
 	}
 
 }
