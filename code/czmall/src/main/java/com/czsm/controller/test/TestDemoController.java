@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.czsm.entity.buyer.BuyerUserInfo;
-import com.czsm.service.commons.RedisService;
+import com.czsm.service.impl.commons.KafkaService;
+import com.czsm.service.impl.commons.RedisService;
 import com.czsm.service.test.TestService;
 import com.czsm.util.AliyunOSSUtil;
 import com.czsm.util.FtpUtil;
@@ -122,13 +123,28 @@ public class TestDemoController {
 	 * @throws IOException
 	 */
 	@RequestMapping("testOss")
-	public String testOss(@RequestParam("file") MultipartFile file,Model model) throws IOException {
+	public String testOss(@RequestParam("file") MultipartFile file, Model model) throws IOException {
 		String fileName = file.getOriginalFilename();
 		InputStream inputStream = file.getInputStream();
-		String path=AliyunOSSUtil.upload(inputStream,"czsm/"+fileName);
+		String path = AliyunOSSUtil.upload(inputStream, "czsm/" + fileName);
 
 		System.out.println(path); // 该路径图片名称，前端框架可用ngnix指定的路径+filePath,即可访问到ngnix图片服务器中的图片
-		model.addAttribute("path",path);
+		model.addAttribute("path", path);
+		return "test";
+	}
+
+	@Autowired
+	private KafkaService kafka;
+
+	/**
+	 * 测试Kafka消息队列
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping("testKafka")
+	public String testKafka(String msg) {
+		kafka.sendMsg(msg);
 		return "test";
 	}
 }

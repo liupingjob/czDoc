@@ -14,8 +14,11 @@ public interface BuyerLoginService {
 	//登录
 	public BuyerUserInfo login(BuyerUserInfo info);
 
-	//查询买家输入的手机号码或邮箱号码是否已存在
-	public String accountExise(BuyerUserInfo info);
+	//查询买家输入的手机号码是否已存在
+	public String accountTelExise(BuyerUserInfo info);
+	
+	//查询买家输入的邮箱号是否已存在
+	public String accountEmailExise(BuyerUserInfo info);
 	
 	//注册
 	public String signup(BuyerUserInfo info);
@@ -25,6 +28,11 @@ public interface BuyerLoginService {
 
 	//获取短信验证码
 	public String smsVcode(String tel);
+
+	//买家忘记密码
+	public String forgetPwd(BuyerUserInfo info);
+
+	
 
 	
 }

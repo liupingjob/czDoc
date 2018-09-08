@@ -47,4 +47,12 @@ public interface BuyerLoginDao {
 	public String EmailExise(String mail);
 
 
+	/**
+	 * 买家忘记密码
+	 * @param info  传入用户名以及密码
+	 * @return
+	 */
+	public int forgetPwd(BuyerUserInfo info);
+
+
 }

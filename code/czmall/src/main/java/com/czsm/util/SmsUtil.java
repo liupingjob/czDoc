@@ -8,8 +8,7 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 
 /**
- * Mac(刘平)
- * Created on 18/8/3. 阿里云短信API产品    
+ * Mac(刘平) Created on 18/8/3. 阿里云短信API产品
  *
  * 备注:工程编码采用UTF-8
  */
@@ -20,11 +19,11 @@ public class SmsUtil {
 	// 产品域名,开发者无需替换
 	static final String domain = "dysmsapi.aliyuncs.com";
 
-	//  此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
-	static final String accessKeyId = "yourAccessKeyId";
-	static final String accessKeySecret = "yourAccessKeySecret";
+	// 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
+	static final String accessKeyId = "LTAIlu0lABBuRQTb";
+	static final String accessKeySecret = "oGYxBg9rKMCvBqviX5T62wDJZiUMwX";
 
-	public static void sendSms(String phoneNum, String code, String username) {
+	public static void sendSms(String phoneNum, String code) {
 
 		// 可自助调整超时时间
 		System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
@@ -44,12 +43,11 @@ public class SmsUtil {
 		// 必填:待发送手机号
 		request.setPhoneNumbers(phoneNum);
 		// 必填:短信签名-可在短信控制台中找到
-		request.setSignName("云通信");
+		request.setSignName("创展世贸");
 		// 必填:短信模板-可在短信控制台中找到
-		request.setTemplateCode("SMS_1000000");
+		request.setTemplateCode("SMS_143895012");
 		// 可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
-		username = username == null ? "创展世贸" : username;
-		request.setTemplateParam("{\"name\":\"" + username + "\", \"code\":\"" + code + "\"}");
+		request.setTemplateParam("{\"name\":\"" + "Mac" + "\", \"code\":\"" + code + "\"}");
 
 		// 选填-上行短信扩展码(无特殊需求用户请忽略此字段)
 		// request.setSmsUpExtendCode("90997");
@@ -67,9 +65,8 @@ public class SmsUtil {
 	}
 
 	public static void main(String[] args) throws ClientException, InterruptedException {
-
-		// 发短信
-		sendSms("18617136779", "2345", "Mac");
+		// sendSms("18617136779", "2345");
+		sendSms("13128898610", "我是孙湘杰我怕谁");
 
 	}
 }

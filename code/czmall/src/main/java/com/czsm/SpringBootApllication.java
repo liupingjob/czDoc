@@ -18,7 +18,8 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.czsm.config.CorsFilter;
-import com.czsm.util.KafkaUtil;
+import com.czsm.service.impl.commons.KafkaService;
+import com.czsm.util.Constants;
 import com.github.pagehelper.PageHelper;
 
 /**
@@ -74,12 +75,12 @@ public class SpringBootApllication {
 	}
 
 	/**
-	 * Kafka设置
+	 * Kafka设置一个定时器测试发送队列消息
 	 */
 	@Autowired
-	private KafkaUtil kafkaSender;
+	private KafkaService kafkaSender;
 
-	// 然后每隔1分钟执行一次
+	// 然后每隔1000秒执行一次
 	@Scheduled(fixedRate = 1000 * 1000)
 	public void testKafka() throws Exception {
 		kafkaSender.sendTest();
@@ -90,7 +91,7 @@ public class SpringBootApllication {
 	 * 
 	 * @param message
 	 */
-	@KafkaListener(topics = { "test" })
+	@KafkaListener(topics = { Constants.KAFKA_TOPIC })
 	public void consumer(String message) {
 		logger.info("test topic message : "+ message);
 	}

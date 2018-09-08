@@ -50,25 +50,7 @@ public class BuyerLoginController {
 		return loginService.usernameExise(username);
 	}
 
-	/**
-	 * 验证码是否正确
-	 * 
-	 * @param vcode 传入用户输入的验证码
-	 * @return返回结果   验证码错误或success
-	 */
-	@RequestMapping("verCode")
-	@ResponseBody
-	public StringMsg vcode(String vcode, HttpServletRequest request) {
-		String msg = "";  //接收下面判断的结果，以返回给前端
-		// 这是系统的验证码
-		String sVcode = (String) request.getSession().getAttribute("verifyCode");		
-		if (!sVcode.equals(vcode)) {  //判断用户输入的验证码是否正确
-			msg = Constants.VCODE_ERROR;  //验证码错误
-		} else {
-			msg = Constants.VCODE_CORRECT;   //验证码正确
-		}
-		return StringMsg.setMsgs(msg);
-	}
+	
 
 	/**
 	 * 买家登录
@@ -121,20 +103,40 @@ public class BuyerLoginController {
 	public String toSignup(Model model) {
 		return "buyer/mailbox";
 	}
+	
 	/**
 	 * 买家注册时，查询该手机号码或邮箱号是否已经被注册
-	 * 
+	 * 忘记密码时，查询手机号码是否已经存在
 	 * @param info  传入买家输入的手机号码或者邮箱号以及类型
 	 * @return  返回结果  success或手机号已存在或者邮箱已存在
 	 */
-	@RequestMapping("buyerAccountExise")
+	@RequestMapping("buyerAccountTelExise")
 	@ResponseBody	
-	public StringMsg accountExise(BuyerUserInfo info) {
+	public StringMsg accountTelExise(BuyerUserInfo info , HttpSession session) {
 		//info.setEmail();  //测试数据，买家输入邮箱注册-邮箱号1698358976@qq.com
-		//info.setuTel("13268066988");
+		//info.setuTel("13268066988");		
+		String result= loginService.accountTelExise(info);//将手机号或邮箱号是否存在的结果返回给前端
 		
-		String result= loginService.accountExise(info);//将手机号或邮箱号是否存在的结果返回给前端		
+		session.setAttribute("forget", info.getuTel()); //将用户输入的手机号存入session
+		
 		return StringMsg.setMsgs(result);  //将此对象返回给前端
+	}
+	
+	
+	/**
+	 * 买家注册时，查询该邮箱号是否已经被注册
+	 * 买家忘记密码时查询邮箱号是否已经被注册
+	 * @param info  传入
+	 * @return
+	 */
+	@RequestMapping("buyerAccountEmailExise")
+	@ResponseBody
+	public StringMsg accountEmailExise(BuyerUserInfo info , HttpSession session) {
+		String result= loginService.accountEmailExise(info);
+		
+		session.setAttribute("forget", info.getEmail()); //将邮箱号存入session
+		
+		return StringMsg.setMsgs(result);
 	}
 	
 	/**
@@ -152,58 +154,33 @@ public class BuyerLoginController {
 		String result=loginService.signup(info); //接收到注册的结果
 		return StringMsg.setMsgs(result);//将注册的结果返回给前端
 	}
+	
 	/**
-	 * 发送验证码
-	 * 
-	 * @param info  传入手机号或者邮箱号
-	 * @return  返回邮箱错误提示或空
+	 * 去忘记密码界面
+	 * @param model
+	 * @return
 	 */
-	@RequestMapping("buyerConVcode")
+	@RequestMapping("toForgetPwd")
 	@ResponseBody
-	public StringMsg buyerVcode(BuyerUserInfo info ,HttpSession session) {
-		String result=Constants.VCODE_SENT; //用于接收关于邮箱的结果，返回给前端。默认已发送
-		String realCode="";
-		//验证邮箱的正则表达式
-		String regex = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)$";				  
-		
-		if(info.getEmail()==null) {  //用户使用手机号注册
-			realCode=loginService.smsVcode(info.getuTel());
-			
-		}else {    //用户使用邮箱注册
-			if(info.getEmail().matches(regex)) {  //用户输入的邮箱合法
-				realCode=loginService.emailVcode(info.getEmail());  //系统生成的邮箱验证码
-				
-			}else {  //用户输入的邮箱不合法
-				result=Constants.EMAIL_ERROR;  //提示用户：输入的邮箱有误
-			}
-			
-		}
-		session.setAttribute("realVcode", realCode);   //将系统输入的验证码放入session中
-		return StringMsg.setMsgs(result);
+	public String toForgetPwd(Model model) {
+		return "buyer/";
 	}
+	
 	/**
-	 * 验证买家输入的短信或邮箱验证码是否正确
-	 * 
-	 * @param inputVcode  传入买家输入的短信或邮箱收到的验证码
-	 * @param session  获取系统生成的验证码
-	 * @return  返回success或验证码错误
+	 * 重置密码
+	 * @param info  传入买家输入的密码
+	 * @param session  传入买家存储的账号
+	 * @return  重置成功
 	 */
-	@RequestMapping("judgeVcode")
+	@RequestMapping("buyerForgetPwd")
 	@ResponseBody
-	public StringMsg judgeVcode( BuyerUserInfo info ,HttpSession session) {
-		String msg="";
-		String inputsVcode=info.getInputVcode();  //获取用户输入的验证码
-//		String real=(String)session.getAttribute("realVcode");
-//		System.out.println("------------------------");
-//		System.out.println("这是系统生成的验证码："+real);
-//		System.out.println("这是用户的验证码"+inputsVcode);
-//		System.out.println("------------------------");
-		if(session.getAttribute("realVcode").equals(inputsVcode)) {  //判断系统生成的验证码与买家输入的验证码是否一致
-			 msg=Constants.VCODE_CORRECT;  //验证码正确
-		}else {
-			msg= Constants.VCODE_ERROR;   //验证码输入错误
-		}
-		return StringMsg.setMsgs(msg);
+	public StringMsg forgetPwd (BuyerUserInfo info ,HttpSession session) {
+		//获取买家输入的手机号或邮箱号
+		String account=(String) session.getAttribute("forget");
+		System.out.println("买家存储的账号："+account);
+		info.setUsername(account);
+		//String result =loginService.forgetPwd(info);
+		return null;
 	}
 
 }

@@ -8,16 +8,14 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>springboot</name>
+	<name>czsm</name>
 	<description>CZSM Project For B2B Mall</description>
 	<parent>
-		<groupId>org.springframework.boot</groupId> 
+		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.1.RELEASE</version>
 		<relativePath />
-
 	</parent>
-
 
 	<!-- 设置编码 -->
 	<properties>
@@ -100,7 +98,7 @@
 		</dependency>
 
 
-		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+		<!-- 邮件类javax.mail/mail -->
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
@@ -130,8 +128,6 @@
 			<artifactId>pagehelper</artifactId>
 			<version>4.1.1</version>
 		</dependency>
-
-
 		<!-- 整合redis -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -143,7 +139,6 @@
 			<artifactId>spring-session-data-redis</artifactId>
 		</dependency>
 		<!-- 加入FTP上传文件组件 -->
-		<!-- https://mvnrepository.com/artifact/commons-net/commons-net -->
 		<dependency>
 			<groupId>commons-net</groupId>
 			<artifactId>commons-net</artifactId>
@@ -161,7 +156,7 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.3.1</version>
 		</dependency>
-
+		<!-- apache kafka引入 -->
 		<dependency>
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka</artifactId>
