@@ -12,8 +12,12 @@ public interface BuyerLoginDao {
 	@Select("select * from userinfo")
 	public List<BuyerUserInfo> findAllUser();
 
-
-	public String usernameExise(String username);
+	/**
+	 * 判断用户名是否存在
+	 * @param info
+	 * @return
+	 */
+	public String usernameExise(BuyerUserInfo info);
 
 
 	/**
@@ -21,7 +25,9 @@ public interface BuyerLoginDao {
 	 * @param info 传入用户名以及密码
 	 * @return  返回null或者一个用户的基本信息
 	 */
-	public BuyerUserInfo findUserByUsername(BuyerUserInfo info);
+	public BuyerUserInfo findUserByUsername(BuyerUserInfo info);  //根据用户名查询买家	
+	public BuyerUserInfo findUserByEmail(BuyerUserInfo info);    //根据邮箱号查询买家
+	public BuyerUserInfo findUserByTel(BuyerUserInfo info);      //根据手机号查询买家
 
 
 	/**
@@ -53,6 +59,27 @@ public interface BuyerLoginDao {
 	 * @return
 	 */
 	public int forgetPwd(BuyerUserInfo info);
+
+
+	/**
+	 * 买家根据手机号找回用户名
+	 * @param getuTel  传入手机号
+	 * @return
+	 */
+	public String findUsernameByTel(String tel);
+
+	/**
+	 * 买家根据邮箱号找回用户名
+	 * @param email  传入邮箱号
+	 * @return
+	 */
+	public String findUsernameByEmail(String email);
+
+
+	
+
+
+	
 
 
 }

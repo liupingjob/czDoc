@@ -9,7 +9,7 @@ public interface BuyerLoginService {
 	public boolean hasUserByAccont(String accont);
 
 	//查询用户名是否存在
-	public StringMsg usernameExise(String username);
+	public StringMsg usernameExise(BuyerUserInfo info);
 
 	//登录
 	public BuyerUserInfo login(BuyerUserInfo info);
@@ -31,6 +31,11 @@ public interface BuyerLoginService {
 
 	//买家忘记密码
 	public String forgetPwd(BuyerUserInfo info);
+	//通过手机号找用户名
+	public String findUsernameByTel(String buyerTel);
+	//通过邮箱号找用户名
+	public String findUsernameByEmail(String buyerEmail);
+	
 
 	
 

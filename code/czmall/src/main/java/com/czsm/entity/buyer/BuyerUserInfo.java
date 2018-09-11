@@ -1,6 +1,12 @@
 package com.czsm.entity.buyer;
 
-public class BuyerUserInfo {
+import java.io.Serializable;
+
+public class BuyerUserInfo implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int userid;   //用户编号
 	private String username;   //用户名
 	private String pwd;   //密码

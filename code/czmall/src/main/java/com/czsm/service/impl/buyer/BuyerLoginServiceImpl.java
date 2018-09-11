@@ -37,10 +37,10 @@ public class BuyerLoginServiceImpl implements BuyerLoginService {
 	 * 买家登录判断用户名是否存在
 	 */
 	@Override
-	public StringMsg usernameExise(String username) {
+	public StringMsg usernameExise(BuyerUserInfo info) {
 		String msg = Constants.ACCOUNT_EXIST; // 返回给controller层的结果 用户名存在
-		String result = loginDao.usernameExise(username);
-		// System.out.println(result);
+		String result = loginDao.usernameExise(info);
+		
 		if (result == null) { // 查询的结果为空
 			msg = Constants.ACCOUNT_NO_EXIST; // 返回“用户名不存在”
 		}
@@ -52,14 +52,31 @@ public class BuyerLoginServiceImpl implements BuyerLoginService {
 	 */
 	@Override
 	public BuyerUserInfo login(BuyerUserInfo info) {
-		// 获得数据密码
-		return loginDao.findUserByUsername(info);// 查出该用户的所有信息
+		//判断是邮箱还是手机号的正则表达式
+		String email = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
+		String phone = "^[1][34578]\\d{9}$";
+		String username=info.getUsername();
+		
+		if(username.matches(phone)) {   //手机号登录
+			info.setuTel(username);						
+			return loginDao.findUserByTel(info);
+		}else if (username.matches(email)) {  //邮箱登录
+			
+			info.setEmail(username);			
+			return loginDao.findUserByEmail(info);
+		}else {  //用户名登录
+			
+			return loginDao.findUserByUsername(info);// 查出该用户的所有信息
+		}
+		
+		
+		
 	}
 
 	/**
 	 * 查询买家输入的手机号码是否已存在
 	 */
-	@Override
+	@Override	
 	public String accountTelExise(BuyerUserInfo info) {		
 		String phone=info.getuTel();  //获取用户输入的手机号码		
 		String result="";
@@ -145,13 +162,34 @@ public class BuyerLoginServiceImpl implements BuyerLoginService {
 	@Override
 	public String forgetPwd(BuyerUserInfo info) {
 		String result="";
+		String password=MD5Util.EncoderByMd5(info.getPwd());
+		
+		info.setPwd(password);
 		int row = loginDao.forgetPwd(info);
 		if(row>0) {
-			result="";
+			result=Constants.RESET_SUCCESS;
 		}else {
-			result="";
+			result=Constants.RESET_FAIL;
 		}
 		return result;
+	}
+
+	/**
+	 * 通过手机号找用户名
+	 */
+	@Override
+	public String findUsernameByTel(String buyerTel) {
+		
+		return loginDao.findUsernameByTel(buyerTel);
+	}
+
+	/**
+	 * 通过邮箱号找用户名
+	 */
+	@Override
+	public String findUsernameByEmail(String buyerEmail) {
+		
+		return loginDao.findUsernameByEmail(buyerEmail);
 	}
 
 }

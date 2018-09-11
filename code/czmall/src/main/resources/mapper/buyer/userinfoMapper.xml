@@ -9,11 +9,19 @@
 	</select>
 	<!-- 用户登录时查询用户名是否已存在 -->
 	<select id="usernameExise" parameterType="String" resultType="String">
-		select username from userinfo where username = #{_parameter}
+		select username from userinfo where username=#{username} or utel=#{uTel} or email=#{email}
 	</select>
 	<!-- 根据用户名和密码查询用户 -->
 	<select id="findUserByUsername" parameterType="com.czsm.entity.buyer.BuyerUserInfo" resultType="com.czsm.entity.buyer.BuyerUserInfo" >
 		select * from userinfo where username=#{username} and pwd=#{pwd}
+	</select>
+	<!-- 根据买家邮箱号查询 -->
+	<select id="findUserByEmail" parameterType="com.czsm.entity.buyer.BuyerUserInfo" resultType="com.czsm.entity.buyer.BuyerUserInfo" >
+		select * from userinfo where email=#{email} and pwd=#{pwd}
+	</select>
+	<!-- 根据买家手机号查询 -->
+	<select id="findUserByTel" parameterType="com.czsm.entity.buyer.BuyerUserInfo" resultType="com.czsm.entity.buyer.BuyerUserInfo">
+		select * from userinfo where utel=#{uTel} and pwd=#{pwd}
 	</select>
 	<!-- 买家注册查询手机号是否已存在 -->
 	<select id="phoneExise" parameterType="String" resultType="String" >
@@ -27,4 +35,17 @@
 	<insert id="signup" parameterType="com.czsm.entity.buyer.BuyerUserInfo">
 		insert into userinfo(userId,utel,username,pwd,email) values(userinfo_s.nextval,#{uTel},#{username},#{pwd},#{email})
 	</insert>
+	<!-- 买家根据手机号找回用户名 -->
+	<select id="findUsernameByTel" parameterType="String" resultType="String">
+		select username from userinfo where utel=#{_parameter}
+	</select>
+	<!-- 买家根据邮箱号找回用户名 -->
+	<select id="findUsernameByEmail" parameterType="String" resultType="String" >
+		select username from userinfo where email=#{_parameter}
+	</select>
+	<!-- 修改买家登录密码 -->
+	<update id="forgetPwd" parameterType="com.czsm.entity.buyer.BuyerUserInfo">
+		update userinfo set pwd=#{pwd} where username=#{username}
+	</update>
+	
 </mapper>

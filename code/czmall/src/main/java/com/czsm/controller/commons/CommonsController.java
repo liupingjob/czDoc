@@ -128,7 +128,7 @@ public class CommonsController {
 		// 从session中拿到手机验证码
 		String realVcode = (String) session.getAttribute(Constants.SMS_VERIFY_CODE);
 		// 判断是否相等
-		return vcode.equals(realVcode) ? StringMsg.setMsgs(Constants.VCODE_CORRECT) : StringMsg.setMsgs(Constants.VCODE_ERROR);
+		return StringMsg.setMsgs(vcode.equals(realVcode) ? Constants.VCODE_CORRECT : Constants.VCODE_ERROR);
 	}
 
 	/**
@@ -143,7 +143,7 @@ public class CommonsController {
 		// 从session中拿到邮箱验证码
 		String realVcode = (String) session.getAttribute(Constants.MAIL_VERIFY_CODE);
 		// 判断是否相等
-		return vcode.equals(realVcode) ? StringMsg.setMsgs(Constants.VCODE_CORRECT) : StringMsg.setMsgs(Constants.VCODE_ERROR);
+		return StringMsg.setMsgs(vcode.equals(realVcode) ? Constants.VCODE_CORRECT : Constants.VCODE_ERROR);
 	}
 
 }

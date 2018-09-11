@@ -44,10 +44,28 @@ public class BuyerLoginController {
 	 * @param username 传入用户名
 	 * @return 返回结果  success或账号不存在
 	 */
-	@RequestMapping("buyerUsnameExise")
+	@RequestMapping("buyerUsernameExise")
 	@ResponseBody
-	public StringMsg usernameExise(String username) {
-		return loginService.usernameExise(username);
+	public StringMsg usernameExise(BuyerUserInfo info) {
+		//判断是邮箱还是手机号的正则表达式
+		String email = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
+		String phone = "^[1][34578]\\d{9}$";
+		String username=info.getUsername();
+		if(username.matches(phone)) {   //手机号登录
+			info.setuTel(username);
+			info.setEmail("");			
+			return loginService.usernameExise(info);
+		}else if (username.matches(email)) {  //邮箱登录
+			info.setEmail(username);
+			info.setuTel("");
+			return loginService.usernameExise(info);
+		}else {  //用户名登录
+			info.setEmail("");
+			info.setuTel("");
+			return loginService.usernameExise(info);
+		}
+		
+		
 	}
 
 	
@@ -69,8 +87,9 @@ public class BuyerLoginController {
 		info.setPwd(mpwd); //将加密后的密码放入info对象的密码属性中
 
 		BuyerUserInfo uInfo = loginService.login(info); // 获取用户的信息		
+			
 		Integer counts = (Integer) session.getAttribute(Constants.LOGIN_COUNT_MSG);  
-		System.out.println("获取的次数：" + counts);
+		String picVcode=info.getVcode();
 		if (counts == null || counts == 0) {//首次登录
 			if (uInfo == null) {
 		   		session.setAttribute(Constants.LOGIN_COUNT_MSG, 1);  //设置登录的次数为1
@@ -80,8 +99,10 @@ public class BuyerLoginController {
 				session.setAttribute(Constants.LOGIN_COUNT_MSG, 0);  //将登录的次数设置为0
 				return Constants.SUCCESS; //返回前端，登录成功
 			}
-		} else if (counts >=Constants.LOGIN_COUNT) {// 密码错误大于3次 ,则需要输入验证码			
+		} else if (counts >Constants.LOGIN_COUNT && picVcode==null ) {// 密码错误大于3次 ,则需要输入验证码	
+			
 			return Constants.INPUT_VCODE;   //将生成的验证码返回给前端
+			
 		} else {
 			if (uInfo == null) {  //用户信息的内容为空
 				session.setAttribute(Constants.LOGIN_COUNT_MSG, ++counts); //登录次数加1
@@ -105,37 +126,29 @@ public class BuyerLoginController {
 	}
 	
 	/**
-	 * 买家注册时，查询该手机号码或邮箱号是否已经被注册
-	 * 忘记密码时，查询手机号码是否已经存在
-	 * @param info  传入买家输入的手机号码或者邮箱号以及类型
+	 * 买家注册时，查询买家输入的手机号码是否已经被注册
+	 * 
+	 * @param info  传入买家输入的手机号码
 	 * @return  返回结果  success或手机号已存在或者邮箱已存在
 	 */
 	@RequestMapping("buyerAccountTelExise")
 	@ResponseBody	
-	public StringMsg accountTelExise(BuyerUserInfo info , HttpSession session) {
-		//info.setEmail();  //测试数据，买家输入邮箱注册-邮箱号1698358976@qq.com
-		//info.setuTel("13268066988");		
-		String result= loginService.accountTelExise(info);//将手机号或邮箱号是否存在的结果返回给前端
-		
-		session.setAttribute("forget", info.getuTel()); //将用户输入的手机号存入session
-		
+	public StringMsg accountTelExise(BuyerUserInfo info , HttpSession session) {		
+		String result= loginService.accountTelExise(info);//将手机号或邮箱号是否存在的结果返回给前端		
 		return StringMsg.setMsgs(result);  //将此对象返回给前端
 	}
 	
 	
 	/**
-	 * 买家注册时，查询该邮箱号是否已经被注册
-	 * 买家忘记密码时查询邮箱号是否已经被注册
-	 * @param info  传入
-	 * @return
+	 * 买家注册时，查询买家输入的邮箱号是否已经被注册
+	 * 
+	 * @param info  传入买家输入的邮箱号
+	 * @return   返回    可注册，手机号已存在或未知错误
 	 */
 	@RequestMapping("buyerAccountEmailExise")
 	@ResponseBody
 	public StringMsg accountEmailExise(BuyerUserInfo info , HttpSession session) {
 		String result= loginService.accountEmailExise(info);
-		
-		session.setAttribute("forget", info.getEmail()); //将邮箱号存入session
-		
 		return StringMsg.setMsgs(result);
 	}
 	
@@ -148,9 +161,6 @@ public class BuyerLoginController {
 	@RequestMapping("buyerSignup")
 	@ResponseBody
 	public StringMsg signup(BuyerUserInfo info) {
-		//info.setPwd("aa");   // 测试数据  设置密码
-		//info.setuTel("13200798009"); //测试数据  设置手机号码			
-		
 		String result=loginService.signup(info); //接收到注册的结果
 		return StringMsg.setMsgs(result);//将注册的结果返回给前端
 	}
@@ -167,6 +177,47 @@ public class BuyerLoginController {
 	}
 	
 	/**
+	 * 忘记密码——通过手机号找到用户名
+	 * @param buyerTel  传入买家输入的手机号
+	 * @param session  将查询出的用户名存入session
+	 * @return  返回  手机号不存在(phoneNoExise)或手机号存在(phoneExise)
+	 */
+	@RequestMapping("buyerForgetPwdTelBack")
+	@ResponseBody	
+	public StringMsg forgetTelBack(String buyerTel , HttpSession session) {		
+		String result="";
+		String username=loginService.findUsernameByTel(buyerTel);//根据手机号查询用户名
+		if(username.equals("")) {
+			result=Constants.PHONE_NO_EXISE;//买家输入的手机号不存在
+		}else {
+			result=Constants.PHONE_EXISE;//手机号存在，可找回密码
+			session.setAttribute("forget", username); //将根据用户输入的手机号查询出的用户名存入session
+		}			
+		return StringMsg.setMsgs(result);  //将此对象返回给前端
+	}
+	
+	
+	/**
+	 * 忘记密码——通过邮箱号找到用户名
+	 * @param buyerEmail  传入买家输入的邮箱号
+	 * @param session   根据邮箱号查询出用户名存入session中
+	 * @return  返回邮箱号存在(emailExise)或邮箱号不存在(inputEmailError)
+	 */
+	@RequestMapping("buyerForgetPwdEmailBack")
+	@ResponseBody
+	public StringMsg forgetEmailBack(String buyerEmail , HttpSession session) {
+		String result="";
+		String username=loginService.findUsernameByEmail(buyerEmail);
+		if(username.equals("")) {
+			result=Constants.EMAIL_ERROR;//买家输入的邮箱号不存在
+		}else {
+			result=Constants.EMAIL_EXISE;//邮箱号存在，可找回密码
+			session.setAttribute("forget", username); //将根据用户输入的邮箱号查询出的用户名存入session
+		}		
+		return StringMsg.setMsgs(result);
+	}
+	
+	/**
 	 * 重置密码
 	 * @param info  传入买家输入的密码
 	 * @param session  传入买家存储的账号
@@ -177,10 +228,9 @@ public class BuyerLoginController {
 	public StringMsg forgetPwd (BuyerUserInfo info ,HttpSession session) {
 		//获取买家输入的手机号或邮箱号
 		String account=(String) session.getAttribute("forget");
-		System.out.println("买家存储的账号："+account);
 		info.setUsername(account);
-		//String result =loginService.forgetPwd(info);
-		return null;
+		String result =loginService.forgetPwd(info);
+		return StringMsg.setMsgs(result);
 	}
 
 }

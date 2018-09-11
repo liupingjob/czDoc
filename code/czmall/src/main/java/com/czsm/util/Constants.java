@@ -34,8 +34,9 @@ public class Constants {
 	public static final String RESET_FAIL="resetPwdFail";   //重置密码失败
 
 	public static final String PHONE_EXISE = "phoneExise";//手机号已存在
-	public static final String CAN_REGISTER = "canRegister";//手机号不存在、邮箱号不存在
+	public static final String CAN_REGISTER = "canRegister";//可注册
 	public static final String EMAIL_EXISE = "emailExise"; //邮箱已存在
+	public static final String PHONE_NO_EXISE = "phoneNoExise";//手机号不存在
 	public static final String EMAIL_ERROR = "inputEmailError";//您输入的邮箱有误
 	
 	public static final int VCODE_LENGTH = 6; // 设置短信验证码和邮箱验证码均为6位
