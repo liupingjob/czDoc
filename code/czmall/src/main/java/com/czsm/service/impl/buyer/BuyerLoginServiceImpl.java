@@ -25,10 +25,10 @@ public class BuyerLoginServiceImpl implements BuyerLoginService {
 	public boolean hasUserByAccont(String accont) {
 		System.out.println("测试service   " + accont);
 		BuyerUserInfo info = loginDao.hasUserByAccont("ss");
-		System.out.println("用户信息：" + info.getUsername() + "========" + info.getUserid());
+		System.out.println("用户信息：" + info.getUsername() + "========" + info.getBid());
 		List<BuyerUserInfo> lists = loginDao.findAllUser();
 		for (BuyerUserInfo user : lists) {
-			System.out.println(user.getUsername() + "---------" + user.getUserid());
+			System.out.println(user.getUsername() + "---------" + user.getBid());
 		}
 		return false;
 	}
@@ -58,7 +58,7 @@ public class BuyerLoginServiceImpl implements BuyerLoginService {
 		String username=info.getUsername();
 		
 		if(username.matches(phone)) {   //手机号登录
-			info.setuTel(username);						
+			info.setTel(username);						
 			return loginDao.findUserByTel(info);
 		}else if (username.matches(email)) {  //邮箱登录
 			
@@ -78,7 +78,7 @@ public class BuyerLoginServiceImpl implements BuyerLoginService {
 	 */
 	@Override	
 	public String accountTelExise(BuyerUserInfo info) {		
-		String phone=info.getuTel();  //获取用户输入的手机号码		
+		String phone=info.getTel();  //获取用户输入的手机号码		
 		String result="";
 		try {
 			result = loginDao.phoneExise(phone);
@@ -118,19 +118,24 @@ public class BuyerLoginServiceImpl implements BuyerLoginService {
 		String enPwd = MD5Util.EncoderByMd5(info.getPwd());
 		info.setPwd(enPwd); // 将密码进行MD5加密
 
-		if (info.getuTel() == null) { // 如果用户电话号码为空，将用户名设置为邮箱
+		if (info.getTel() == null) { // 如果用户电话号码为空，将用户名设置为邮箱
 			info.setUsername(info.getEmail());
-			info.setuTel("");
+			info.setTel("");
 
 		} else { // 电话号码不为空，用户名为手机号码
-			info.setUsername(info.getuTel());
+			info.setUsername(info.getTel());
 			info.setEmail("");
 		}
-		int row = loginDao.signup(info); // 返回影响的行数
-		if (row > 0) {
-			return Constants.SUCCESS; // 注册成功
-		} else {
-			return Constants.FAIL; // 添加失败
+		try {
+			int row = loginDao.signup(info); // 返回影响的行数
+			if (row > 0) {
+				return Constants.SUCCESS; // 注册成功
+			} else {
+				return Constants.FAIL; // 添加失败
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Constants.UNKNOWN_ERROR;
 		}
 
 	}

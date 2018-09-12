@@ -52,16 +52,16 @@ public class BuyerLoginController {
 		String phone = "^[1][34578]\\d{9}$";
 		String username=info.getUsername();
 		if(username.matches(phone)) {   //手机号登录
-			info.setuTel(username);
+			info.setTel(username);
 			info.setEmail("");			
 			return loginService.usernameExise(info);
 		}else if (username.matches(email)) {  //邮箱登录
 			info.setEmail(username);
-			info.setuTel("");
+			info.setTel("");
 			return loginService.usernameExise(info);
 		}else {  //用户名登录
 			info.setEmail("");
-			info.setuTel("");
+			info.setTel("");
 			return loginService.usernameExise(info);
 		}
 		

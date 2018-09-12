@@ -2,8 +2,6 @@ package com.czsm.util;
 
 import java.security.MessageDigest;
 
-import sun.misc.BASE64Encoder;
-
 /**
  * MD5加密帮助类
  * 
@@ -17,20 +15,30 @@ public class MD5Util {
 	 * @param str 原文
 	 * @return 密文
 	 */
-	public static String EncoderByMd5(String str) {
 
-		String newstr = "加密失败";
-		// 确定计算方法
+	public static String EncoderByMd5(String key) {
+		char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 		try {
-			MessageDigest md5 = MessageDigest.getInstance("MD5");
-			BASE64Encoder base64en = new BASE64Encoder();
-			// 加密后的字符串
-			newstr = base64en.encode(md5.digest(str.getBytes("utf-8")));
+			byte[] btInput = key.getBytes();
+			// 获得MD5摘要算法的 MessageDigest 对象
+			MessageDigest mdInst = MessageDigest.getInstance("MD5");
+			// 使用指定的字节更新摘要
+			mdInst.update(btInput);
+			// 获得密文
+			byte[] md = mdInst.digest();
+			// 把密文转换成十六进制的字符串形式
+			int j = md.length;
+			char str[] = new char[j * 2];
+			int k = 0;
+			for (int i = 0; i < j; i++) {
+				byte byte0 = md[i];
+				str[k++] = hexDigits[byte0 >>> 4 & 0xf];
+				str[k++] = hexDigits[byte0 & 0xf];
+			}
+			return new String(str);
 		} catch (Exception e) {
-			e.printStackTrace();
+			return null;
 		}
-
-		return newstr;
 	}
 
 	/**
@@ -46,7 +54,7 @@ public class MD5Util {
 		else
 			return false;
 	}
-	
+
 	public static void main(String[] args) {
 		System.out.println(MD5Util.EncoderByMd5("1234"));
 	}

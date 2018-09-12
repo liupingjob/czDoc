@@ -1,4 +1,4 @@
-package com.czsm.test.buyer;
+package com.czsm.test;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,12 +16,12 @@ import org.springframework.web.context.WebApplicationContext;
 import com.czsm.SpringBootApllication;
 
 /**
- * Created by Mac 刘平 20180912
+ * 单元测试类编写模板类 Created by Mac 刘平 20180912
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootApllication.class)
 @AutoConfigureMockMvc
-public class TestBuyerLogin {
+public class TestBuyerLoginTemplate {
 	@Autowired
 	private WebApplicationContext context;
 
@@ -45,6 +45,9 @@ public class TestBuyerLogin {
 		System.out.println(status + "===============***=================");
 		String responseString = mvcResult.getResponse().getContentAsString();
 		System.out.println(responseString);// 返回结果
-
+		/**
+		 * 测试是否添加成功 验证主键是否存在
+		 */
+		// Assert.assertNotNull(status);
 	}
 }
