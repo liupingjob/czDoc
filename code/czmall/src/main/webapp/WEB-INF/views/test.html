@@ -1,0 +1,21 @@
+﻿<script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+	});
+</script>
+<head>
+<title>测试页面</title>
+</head>
+<body>
+	<table border="1">
+ 
+		
+	
+	</table>
+	
+	<form action="testOss" method="post" enctype="multipart/form-data">
+		<input type="file" name="file" /> <input name="测试FTP" type="submit"/><a th:href="${path}" th:text="${path}"></a>
+	</form>
+	<img alt="" th:src="${path}" >
+</body>
+</html>

@@ -1,0 +1,192 @@
+body {
+    FONT-SIZE: 12px;
+    color: #666;
+    background: #f7f7f7;
+}
+.clearfix:after{clear:both;display:block;content:"...";visibility:hidden;height:0;font-size:0;}
+.clearfix{*zoom:1;}
+
+.jx-wrap input{ height:40px; line-height:40px; color:#999; border:1px solid #dcdcdc; font-size:16px;}
+.jx-wrap input.on{ height:40px; line-height:40px; color:#999; border:1px solid #ff6666; font-size:16px;}
+.jx-wrap i{ background:url(../images/regLogin-8.png) no-repeat 0 0;}
+.jx-wrap{ width:100%; background:#fff; min-width:1000px;}
+.jx-top-header{ width:100%; background:#fff; height:88px; box-shadow:1px 2px 6px #e1e1e1; z-index:1; position:relative;}
+.jx-top-head{ width:1000px; height:88px; margin:0 auto;}
+.jx-logo{ float: left; height: 63px; margin-top:15px; width:257px;}
+.jx-logo p{ float:left;}
+.jx-logo .jx-index{ width:140px;}
+.jx-logo .jx-topic{ width:117px; float:right;}
+.jx-logo .jx-index a{ width:140px;}
+.jx-logo .jx-topic a{ width:117px;}
+.jx-logo p a{ display:block; height:63px;}
+.jx-reg{ float:right; color:#999; margin-top:48px; height:14px; line-height:14px;}
+.jx-reg a,.jx-reg a:hover{ color:#0066cc; margin-left:20px;}
+.jx-head-nav{ width:77px; height:14px; line-height:14px; float:right; display:inline; margin:48px 0 0 20px; position:relative; cursor:pointer; z-index:10;}
+.jx-head-icon{ height:14px; position:relative; z-index:2;}
+.jx-head-nav .jx-xin{ float:left; background-position:0 0; width:12px; height:12px; display:inline-block; margin:1px 8px 0 0;}
+.jx-head-nav span{ float:left; display:inline-block; color:#666; margin-right:6px;}
+.jx-head-nav .jx-jt{ float:left; display:inline-block; background-position:-23px 0; width:15px; height:14px;}
+.jx-head-pop{ display:none; position:absolute; border:1px solid #ccc; top:-6px; left:-10px; width:85px; z-index:1; padding-top:26px;}
+.jx-head-pop li{ border-top:1px dotted #ccc; padding-left:10px; height:24px; line-height:24px; background:#fff;}
+.jx-head-pop li a{ color:#999;}
+.jx-main-bg{ width:100%; padding:0 0 50px;height:600px;background-color: #039bc3;}
+.jx-main{ width:1000px; margin:0 auto;}
+.jx-content{background:#fff;border: 3px solid #eaeaea;border-radius: 5px;box-shadow: 1px 6px 11px #e4e4e4;height: 500px; position:relative;}
+.jx-content.loginbd{background:transparent;border:0;box-shadow:0 0 0 0;}
+.jx-contentbd{background-color:#fff;overflow:hidden;position:relative;width:350px;height:405px;top:100px;left:650px;}
+.jx-ewmLoginLink{display:block;width:65px;height:65px;position:absolute;top:0;right:0;z-index:9999;cursor:pointer;}
+.jx-ewmLoginLink i{background-position:0 -230px;width:65px;height:65px;display:block;}
+.jx-pcLoginLink{display:block;width:65px;height:65px;position:absolute;top:0;right:0;z-index:9999;cursor:pointer;display:none;}
+.jx-pcLoginLink i{background-position:-80px -230px;width:65px;height:65px;display:block;}
+.addbind_01{ border:3px solid #eaeaea; background:#fff; height:580px; border-radius:5px; box-shadow:1px 6px 11px #e4e4e4;}
+
+
+/*普通登录begin*/
+.loginSideAd{float: left;display: inline-block;*display: inline;*zoom: 1;width: 600px;height: 450px;overflow: hidden;}
+.loginCon{width:270px;margin-left:40px;}
+.loginCon .loginTit{margin: 45px 0 19px;  height: 70px;  overflow: hidden;  line-height: 40px;  text-align: center;}
+.loginTit a{float:left;display: inline-block;*display: inline;*zoom: 1;color: #999;font-size:16px;}
+.loginTit span{float:left;display: inline-block;*display: inline;*zoom: 1;font-size:12px;color:#999;padding:0 18px;}
+.loginTit a:hover{color: #0066cc;}
+.loginTit a.on{color:#039bc3;font-weight:bold;margin: 6px 22px 44px 100px;text-align:center;font-size:22px;}
+.Frame{width: 270px;height: 42px;position: relative;top: 0;left: 0;margin-bottom:20px;}
+.Frame .filter{width: 43px;height: 42px;position: absolute;top: 0;left: 0;z-index: 5;}
+.Frame .text{position: absolute;top: 0;left: 0;z-index: 4;background: none;font-weight: 700;}
+.enterFrame .text{ width: 173px; padding:0 45px 0 50px;border-radius: 5px;}
+.Frame .filter i{float: left;display: inline-block;*display: inline;*zoom: 1;}
+.Frame .filter .userIconBox{display: inline-block;width: 43px;height: 40px;background:#f3f3f3;position:absolute; top:1px; left:1px; z-index:3;border-right:1px solid #dcdcdc;}
+.Frame .filter .userIcon{width: 20px;height: 20px;background-position: -51px 0;margin:10px 10px 0 11px;}
+.Frame .filter p{ display: inline-block;*display: inline;*zoom: 1;font-size: 16px;margin-top: 11px;color: #ccc;position:absolute; left:0; top:0; width:200px; padding-left:55px; z-index:5;}
+.Frame .filter .judge{float: none;display: inline-block;*display: inline;*zoom: 1;position:absolute; left:246px; top:15px;}
+.Frame .filter .judgeDel{float:left; display:inline-block; width:16px; height:16px; *display:inline; *zoom:1; background-position:-486px -42px; cursor: pointer;position:absolute; top:14px; left:248px; z-index:5; display:none;}
+
+.Frame .filter .pwdIcon{width: 16px;height: 22px;background-position: -83px 0;margin:10px 11px auto 13px;}
+.Frame.wrong .filter .judge{width: 15px;height: 15px;background-position: -162px 0;}
+.Frame .filter.wrong .judge{width: 15px;height: 15px;background-position: -162px 0;}
+.Frame.right .filter .judge{width: 15px;height: 14px;background-position: -139px 0;}
+.mistakeTip,.mistakeTip02{padding: 0 10px;height: 20px; color: #fff;line-height: 20px;position: absolute;bottom: -15px;right: 0;z-index: 5;}
+.mistakeTip{background: #ed787f;}
+.mistakeTip02{ background:#ccc;}
+.yzFrame .text{padding-left:50px;width:84px;padding-right: 134px;}
+/**
+.yzFrame .yzm{float: right;display: inline-block;*display: inline;*zoom: 1;margin-right: 60px;margin-top: 1px;}
+*/
+.yzFrame .yzm{position: absolute;left:189px;top:1px;}
+.yzFrame .refresh i{width:80px;height:40px;z-index: 5;position: absolute;top: 0;right: 0;background-position: 188px 188px;}
+.loginCon .loginBtn{margin-bottom: 11px;}
+.loginBtn input{width: 160px;background-color: #fff;color: #26a2c7;border-radius: 2px;border: 0;cursor: pointer;font-family: "Microsoft Yahei";border-radius: 5px;border: 2px solid;height: 50px;margin-left: 80px;}
+.loginCon .moreChoice{margin-bottom: 16px;}
+
+.moreChoice .auto,.moreChoice .forgetPwd{color: #999;display: inline-block;*display: inline;*zoom: 1;}
+.moreChoice .freeReg{color: #0066cc;display: inline-block;*display: inline;*zoom: 1;float: right;padding-left:13px;}
+.moreChoice .forgetLine{float: right; padding:0 3px; position: relative; top:-2px; color:#999;}
+.moreChoice .auto{float: left;}
+.moreChoice .forgetPwd{float: right;}
+.moreChoice .auto input{height: auto;border: 0;}
+.loginType{height: 267px;border-bottom: 1px dotted #ccc;overflow: hidden;}
+.cooperate p{margin:22px 15px 0 0;float:left;color: #999;}
+.cooperateWay{width: 243px;height: 42px;margin: 0 auto;}
+.cooperateWay a i{float: left;display: inline-block;*display: inline;*zoom: 1;width:30px;height: 30px;margin-left:12px;margin-top:16px;}
+.cooperateWay .qq i{background-position: 0 -35px;margin-left: 0;}
+.cooperateWay .sina i{background-position: -51px -35px;}
+.cooperateWay .aliPay i{background-position: -102px -35px;}
+.cooperateWay .baidu i{background-position: -153px -35px;}
+.cooperateWay .qq:hover i{background-position: 0 -86px;}
+.cooperateWay .sina:hover i{background-position: -51px -86px;}
+.cooperateWay .aliPay:hover i{background-position: -102px -86px;}
+.cooperateWay .baidu:hover i{background-position: -153px -86px;}
+.jx-content .picFoucs{display: block; position: absolute; width: 650px; height: 600px; z-index: 1;}
+/*普通登录end*/
+
+
+/*个人注册*/
+.jx-main-bg.regBg{ background:url(/img/reg/bg.jpg) repeat-x scroll left top;padding-top: 70px;}
+.jx-regBox{ height:450px; width:994px; position:relative;}
+.jx-regTitBox{ width:280px; height:34px; position:absolute; right:15px; top:-37px;}
+.jx-regTitBox .jx-regTit{float:right; cursor:pointer; display:inline-block; padding:0 15px; height:34px; line-height:34px; color:#fff; font-family:"微软雅黑"; font-size:14px; /*border:2px solid #ff9900;*/ border-bottom:0px; border-top-left-radius:5px; border-top-right-radius:5px; background:#ff9900; margin-left:6px; vertical-align:top;border-bottom: none;}
+.jx-regTitBox .jx-regTit:hover{ color:#fff; text-decoration:none;}
+.jx-regTitBox .jx-regTit.on{height:35px; border:2px solid #eaeaea; background:#fff; color:#ff9900; margin-bottom:-3px; position:relative;border-bottom: none;  }
+.jx-regMenu{ width:130px; height:500px; padding-left:80px; background:#fff; position:absolute; top:0; left:0; z-index:11;}
+.regMenuList{ width:130px; height:250px; background:#f8f8f8; text-align:center; position:relative; cursor:pointer;}
+.regMenuList.on{ background:#f3f0ef;}
+.regMenuList .rm-arrow{ display:inline-block; width:12px; height:14px; background-position:0 0; position:absolute; right:0; top:105px; }
+.regMenuList .rm-mail,.regMenuList .rm-phone{ display:inline-block; width:50px; height:50px; margin-top:70px;}
+.regMenuList .rm-mail{ background-position:-222px -35px;}
+.regMenuList .rm-phone{ background-position:-416px -35px;}
+.regMenuList.on .rm-mail{ background-position:-355px -35px;}
+.regMenuList.on .rm-phone{ background-position:-291px -34px;}
+.regMenuList p{ padding-top:10px; font-size:18px; font-family:"微软雅黑"; color:#ccc;}
+.regMenuList.on p{ color:#cc0000;}
+
+.regConWrap{ height:500px; width:994px; overflow:hidden; position:relative; }
+.regConWrap ul{ height:450px; width:2000px;}
+.regConWrap ul li.regCon{ width:784px; padding:26px 0 0 125px; float:left;}
+.regConWrap ul li.add{ width:784px; padding:55px 0 0 125px; float:left;}
+.regAccInfor{ margin-top:15px;}
+.regAccInfornn { margin-top:30px;}
+.regAccInfornn .regInput {
+    width: 255px;
+    padding-left: 45px;
+    background: none;
+    position: relative;
+    z-index: 3;
+    font-weight: 700;
+    border-radius: 5px;
+}
+.regAccInforBom{margin:0 0 20px;}
+.addbind_02{ margin-top:0px;}
+.regAccInfor .regInput{ width:255px; padding-left:45px; background:none; position:relative; z-index:3; font-weight:700;border-radius:5px;}
+.regCon #password, .regCon #repassword{padding-right:45px;width:210px;}
+.regAccInfor .userAccountNameByEmail{ width:215px; padding-right:40px;}
+.regLabel{ width:230px; height:42px; line-height:42px; text-align:right; font-size:16px; padding-right:30px; float:left;}
+.regInputBox{ height:42px; width:302px; float:left; position:relative;}
+.addbind_04{width:306px;}
+.regAccInfor .addbind_05{width:258px;}
+.regInputBox .regIconBox{ height:35px; width:45px; background:#fff; position:absolute; left:1px; top:2px; _top:3px; z-index:4;padding-top: 2px;}
+.regInputBox .regIcon{ display:inline-block; height:26px; width:26px; position:absolute; left:12px; top:9px;}
+.regInputBox .regIcon.accName{ background-position:-48px 2px;}
+.regInputBox .regIcon.accPass{ background-position:-77px 2px;}
+.regInputBox .regIcon.accCap{ background-position:-422px 2px;}
+.regInputBox .regIcon.accCheck{ background-position:-259px 1px;}
+.regInputBox .regValue{ display:inline-block; height:26px; line-height:26px; font-size:16px; color:#ccc; position:absolute; top:9px; left:45px; z-index:2; display:none;}
+.regInputBox .regPointIcon{ display:inline-block; width:15px; height:15px; position:absolute; top:14px; *+top:15px; _top:17px; right:10px; z-index:4;}
+.regInputBox .regPointIcon.regFalse{ background-position:-162px 0;}
+.regInputBox .regPointIcon.regTrue{background-position:-139px 0;}
+.regInputBox .regPoint{ display:inline-block; height:20px; line-height:20px; color:#fff; padding:0 8px; position:absolute; top:37px; *+top:38px; _top:41px; right:0px; z-index:5;}
+.regInputBox .regPoint.poiFalse{ background:#ed787f;}
+.regInputBox .regPoint.poiTrue{ background:#ccc;}
+.regInputBox .regCap{ display:block; width:80px; height:40px; position:absolute;top:0;right:3px;z-index:1; *+top:2px; _top:2px; }
+.regInputBox .regCapIcon{ display:block; width:80px; height:40px; background-position:188px 100px; position:absolute; top:0; *+top:2px; _top:2px; right:3px; cursor:pointer; z-index:3;}
+.regAccBut{ margin:40px 0 0 260px;}
+.regAccButs{margin: 5px 0 0 320px;}
+.regAgreeBox{ line-height:22px; width:302px; position:relative; }
+.regAgreeBox .regAgrInput{ height:auto; border:none;}
+.regAgreeBox .regAgree{ display:inline-block; color:#999; margin-left:10px; margin-top:12px; margin-bottom:9px;}
+.regAgreeBox .regAgree a{ color:#0066cc;}
+.regAgreeBox .regAgree a:hover{ color:#0066cc;}
+.regAccBut .regAgreePoint{ color:#cc0000; padding-left:24px; *+padding-left:30px; _padding-left:31px;}
+.regInputBox .regSub{width: 302px;height: 42px;font-size: 18px;font-family: "微软雅黑";color: #039bc3;border-radius: 2px;border: none;background: #ffffff;cursor: pointer;border-radius: 5px;border: 1px solid #039bc3;}
+
+.regAccInfor .regCheck{ width:148px; height:42px; position:absolute; top:0; left:0; z-index:3;}
+.regAccInfor .regInputChe{ width:101px; padding-left:45px; background:none; position:relative; z-index:3; font-weight:700;border-radius:5px;}
+.checkButBox{ width:148px; height:42px; position:absolute; top:0; *+top:1px; _top:2px; right:0; z-index:3;}
+.checkButBox.loginRegbd{width:116px;}
+.checkButBox .regCheckBut{ display: inline-block;width: 146px;height: 40px;line-height: 40px; font-size: 12px;text-align: center;font-family: "微软雅黑";font-weight: normal;border: 1px solid #039bc3;background-color: #039bc3;cursor: pointer;border-radius: 3px;color: #fff;}
+.checkButBox .regCheckBut.logregCheckBtn{width:114px;}
+.checkButBox .regCheckBut em{font-style:normal; padding:0 5px; display:inline-block; color:#cc0000;}
+.checkButBox .regCheckBut del{ text-decoration: none; font-style:normal; color:#cc0000; padding-right:3px;}
+/*个人注册end*/
+
+/* 完善买家信息 */
+
+
+/* 完善买家信息  END*/
+
+
+/* foot css */
+.w {width: 990px;margin: 30px auto;}
+#footer-2013 {padding-bottom: 30px;text-align: center;}
+#footer-2013 .links a, #footer-2013 .links span {margin: 0 10px;  color: #666;  text-decoration: none;  }
+#footer-2013 .copyright { margin: 10px 0;  }
+
+/* foot css END */
