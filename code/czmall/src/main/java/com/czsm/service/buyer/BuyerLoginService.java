@@ -21,13 +21,7 @@ public interface BuyerLoginService {
 	public String accountEmailExise(BuyerUserInfo info);
 	
 	//注册
-	public String signup(BuyerUserInfo info);
-
-	//获取邮箱验证码
-	public String emailVcode(String email);
-
-	//获取短信验证码
-	public String smsVcode(String tel);
+	public String signup(BuyerUserInfo info);	
 
 	//买家忘记密码
 	public String forgetPwd(BuyerUserInfo info);

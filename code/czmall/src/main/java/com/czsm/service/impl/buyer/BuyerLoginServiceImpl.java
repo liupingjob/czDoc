@@ -11,10 +11,8 @@ import com.czsm.entity.buyer.BuyerUserInfo;
 import com.czsm.entity.commons.StringMsg;
 import com.czsm.service.buyer.BuyerLoginService;
 import com.czsm.util.MD5Util;
-import com.czsm.util.MailUtil;
 import com.czsm.util.Constants;
-import com.czsm.util.NumberUtil;
-import com.czsm.util.SmsUtil;
+
 
 @Service("LoginService")
 public class BuyerLoginServiceImpl implements BuyerLoginService {
@@ -25,10 +23,10 @@ public class BuyerLoginServiceImpl implements BuyerLoginService {
 	public boolean hasUserByAccont(String accont) {
 		System.out.println("测试service   " + accont);
 		BuyerUserInfo info = loginDao.hasUserByAccont("ss");
-		System.out.println("用户信息：" + info.getUsername() + "========" + info.getBid());
+		System.out.println("用户信息：" + info.getUsername() + "========" + info.getUserid());
 		List<BuyerUserInfo> lists = loginDao.findAllUser();
 		for (BuyerUserInfo user : lists) {
-			System.out.println(user.getUsername() + "---------" + user.getBid());
+			System.out.println(user.getUsername() + "---------" + user.getUserid());
 		}
 		return false;
 	}
@@ -140,26 +138,6 @@ public class BuyerLoginServiceImpl implements BuyerLoginService {
 
 	}
 
-	/**
-	 * 使用邮件发送验证码
-	 */
-	@Override
-	public String emailVcode(String email) {
-		String num = NumberUtil.getRandomNum(Constants.VCODE_LENGTH);// 获取系统生成的邮箱验证码
-		MailUtil.sendMail(email, num); // 向指定邮箱中发送验证码
-		return num;
-	}
-
-	/**
-	 * 使用手机号码发送验证码
-	 */
-	@Override
-	public String smsVcode(String tel) {
-		String num = NumberUtil.getRandomNum(Constants.VCODE_LENGTH);// 获取系统生成的短信验证码
-		SmsUtil.sendSms(tel, num); // 向指定手机号发送验证码
-		return num;
-	}
-	
 	
 	/**
 	 * 买家忘记密码

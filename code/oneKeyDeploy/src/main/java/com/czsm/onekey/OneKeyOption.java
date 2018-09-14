@@ -8,6 +8,15 @@ import com.czsm.onekey.util.SftpUtil;
 
 public class OneKeyOption {
 	public static void main(String[] args) throws Exception {
+		OneKeyOption.runOneKeyOption();
+	}
+
+	/**
+	 * 一键部署web应用到Linux服务器 下载Linux服务器日志文件到本地 查看Linux服务器实时日志显示
+	 * 
+	 * @throws Exception
+	 */
+	public static void runOneKeyOption() throws Exception {
 		System.out.println("****欢迎使用一键部署服务******");
 		System.out.println(" 1、一键部署web应用到Linux服务器 ");
 		System.out.println(" 2、下载Linux服务器日志文件到本地");
@@ -16,7 +25,8 @@ public class OneKeyOption {
 		System.out.println(" 5、重启后启动redis服务器");
 		System.out.println(" 6、启动zookeeper服务器");
 		System.out.println(" 7、启动kafka 服务器");
-		System.out.print("请输入您要的操作的序号然后回车     ");
+		System.out.println(" 8、启动Solr 服务器");
+		System.out.print("请输入您要的操作的序号然后回车       ");
 		Scanner scan = new Scanner(System.in);
 		int input = scan.nextInt();
 		if (input == 1) {
@@ -26,7 +36,8 @@ public class OneKeyOption {
 			System.out.println("          2、确定代码本地代码启动正常并且基本功能（如：首页）正常访问 ");
 			System.out.println("          3、确定已运行run-->maven install  并提示成功");
 			System.out.println("          4、确定已通知到项目组（如企业QQ群） 项目正准备部署中");
-			System.out.print(" **********以上都已确定请输入y按回车将直接部署************************");
+			System.out.println("          5、群通知消息模板：项目正在部署中，服务器暂停访问3分钟，请稍等！ 部署已完成，访问地址为：http://192.168.1.110   修复bug列表为：");
+			System.out.print(" **********以上都已确定请输入y按回车将直接部署************************        ");
 			scan.next();
 			SftpUtil.uploadWarFile(Constants.localWarPath);
 			SSHUtil.sshCommand(Constants.deploy);
@@ -42,7 +53,7 @@ public class OneKeyOption {
 			System.out.println("测试服务器重启需要5分钟左右时间 ");
 			System.out.println("确定已通知到项目组（如企业QQ群） 服务器正在重启中");
 			System.out.println("重启服务器完成后需要启动redis zookeeper kafka服务");
-			System.out.println("确证要重启服务器请输入y按回车键");
+			System.out.println("确证要重启服务器请输入y按回车键      ");
 			scan.next();
 			SSHUtil.sshCommand(Constants.reboot);
 		} else if (input == 5) {
@@ -54,6 +65,9 @@ public class OneKeyOption {
 		} else if (input == 7) {
 			System.out.println("正在启动Kafka服务 看到 追加到 nohup.out 表示启动成功");
 			SSHUtil.sshCommand(Constants.startKafkaServer);
+		}else if(input==8) {
+			System.out.println("正在启动Solr服务 看到 server on port 8983 表示启动成功");
+			SSHUtil.sshCommand(Constants.startSolrServer);
 		}
 		scan.close();
 	}

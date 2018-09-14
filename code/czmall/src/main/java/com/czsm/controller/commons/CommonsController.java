@@ -102,7 +102,6 @@ public class CommonsController {
 	@RequestMapping("buyerSendMailVcode")
 	@ResponseBody
 	public StringMsg sentMail(String mailUrl, HttpSession session) {
-		MailUtil.sendMail(mailUrl, NumberUtil.getRandomNum(Constants.VCODE_LENGTH));
 		// 取得验证码六位随机数
 		String vcode = NumberUtil.getRandomNum(Constants.VCODE_LENGTH);
 		// 发送验证码

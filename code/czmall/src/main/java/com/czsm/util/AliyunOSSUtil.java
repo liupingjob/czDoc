@@ -22,12 +22,12 @@ import com.aliyun.oss.model.PutObjectResult;
 public class AliyunOSSUtil {
 
 	private final static Logger log = Logger.getLogger(AliyunOSSUtil.class);
-	private final static String END_POINT = "oss-cn-beijing.aliyuncs.com";
-	private final static String ACCESS_KEY_ID = "LTAIBZY1LBQPjC30";
-	private final static String ACCESS_KEY_SECRET = "aYS178iUsiG9R96fxBJhPGRVMrRKts";
-	private final static String BUCKET_NAME = "czsm";
+	private final static String END_POINT = "oss-cn-shenzhen.aliyuncs.com";
+	private final static String ACCESS_KEY_ID = "LTAIlu0lABBuRQTb";
+	private final static String ACCESS_KEY_SECRET = "oGYxBg9rKMCvBqviX5T62wDJZiUMwX";
+	private final static String BUCKET_NAME = "czsmoss";
 	// 文件访问域名
-	private static String FILE_HOST = "https://czsm.oss-cn-beijing.aliyuncs.com/";
+	private static String FILE_HOST = "https://czsmoss.oss-cn-shenzhen.aliyuncs.com/";
 
 	/**
 	 * 方法描述:上传文件 默认传到czsm文件夹

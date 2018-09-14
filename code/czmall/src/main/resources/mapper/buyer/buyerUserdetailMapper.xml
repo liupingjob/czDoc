@@ -3,7 +3,16 @@
 <mapper namespace="com.czsm.dao.buyer.BuyerUserInfoDao">
 	<!-- 查询买家个人信息 -->
 	<select id="finInfoByUserName" parameterType="String" resultType="com.czsm.entity.buyer.BuyerUserInfo">
-		select * from buyer_userinfo where busername=#{_parameter}
+		select petname,bsex, birthday,bidentity,bjob,busername username from buyer_userinfo where busername=#{_parameter}
 	</select>
+	
+	<!-- 修改买家所有信息 -->
+	<update id="updateInfoById" parameterType="com.czsm.entity.buyer.BuyerUserInfo" >
+		update buyer_userinfo set petname=#{petname} , bsex=#{bsex} , birthday=to_date(#{birthday},'yyyy-mm-dd hh24:mi:ss' ), bidentity=#{bidentity} , bjob=#{bjob} where bid=#{bid}
+	</update>
 
+	<!-- 根据买家编号显示买家公司信息信息 -->
+	<select id="companyInfoByUserid" parameterType="int" resultType="com.czsm.entity.buyer.BuyerCompanyInfo">
+		select companyid, companyname,companyaddress,licensenumber,legalname,legalidentity,companytel,companyplace from buyer_companyinfo where userid=#{_parameter}
+	</select>
 </mapper>

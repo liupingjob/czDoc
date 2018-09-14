@@ -1,4 +1,4 @@
-package com.czsm.controller.buyer;
+package com.czsm.controller.seller;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,33 +18,33 @@ import com.czsm.util.Constants;
 
 
 /**
- * 买家登录注册相关功能
+ * 商家登录注册相关功能
  * 
  * @author Mac(刘平) 20180804
  */
 @Controller
-public class BuyerLoginController {
+public class SellerLoginController {
 	@Autowired
 	private BuyerLoginService loginService;
 
 	/**
-	 * 去买家登录页面
+	 * 去商家登录页面
 	 * 
 	 * @param model 传值给页面
 	 * @return 页面路径
 	 */
-	@RequestMapping("buyerToLogin")
+	@RequestMapping("sellerToLogin")
 	public String toLogin(Model model) {		
-		return "buyer/login";
+		return "seller/login";
 	}
 
 	/**
-	 * 买家登录时判断用户名是否存在
+	 * 商家登录时判断用户名是否存在
 	 * 
 	 * @param username 传入用户名
 	 * @return 返回结果  success或账号不存在
 	 */
-	@RequestMapping("buyerUsernameExise")
+	@RequestMapping("sellerUsernameExise")
 	@ResponseBody
 	public StringMsg usernameExise(BuyerUserInfo info) {
 		//判断是邮箱还是手机号的正则表达式
@@ -71,13 +71,13 @@ public class BuyerLoginController {
 	
 
 	/**
-	 * 买家登录
+	 * 商家登录
 	 * 
 	 * @param info  传入用户名和密码
 	 * @param request  
 	 * @return  返回一个结果  success或密码错误
 	 */
-	@RequestMapping("buyerLogin")
+	@RequestMapping("sellerLogin")
 	@ResponseBody
 	public String login(BuyerUserInfo info, HttpServletRequest request, HttpSession session) {
 		
@@ -115,23 +115,23 @@ public class BuyerLoginController {
 	}
 	
 	/**
-	 * 去买家注册页面
+	 * 去商家注册页面
 	 * 
 	 * @param model 传值给页面
 	 * @return 页面路径
 	 */
-	@RequestMapping("buyerToSignup")
+	@RequestMapping("sellerToSignup")
 	public String toSignup(Model model) {
-		return "buyer/mailbox";
+		return "seller/mailbox";
 	}
 	
 	/**
-	 * 买家注册时，查询买家输入的手机号码是否已经被注册
+	 * 商家注册时，查询商家输入的手机号码是否已经被注册
 	 * 
-	 * @param info  传入买家输入的手机号码  tel
+	 * @param info  传入商家输入的手机号码
 	 * @return  返回结果  success或手机号已存在或者邮箱已存在
 	 */
-	@RequestMapping("buyerAccountTelExise")
+	@RequestMapping("sellerAccountTelExise")
 	@ResponseBody	
 	public StringMsg accountTelExise(BuyerUserInfo info , HttpSession session) {		
 		String result= loginService.accountTelExise(info);//将手机号或邮箱号是否存在的结果返回给前端		
@@ -140,12 +140,12 @@ public class BuyerLoginController {
 	
 	
 	/**
-	 * 买家注册时，查询买家输入的邮箱号是否已经被注册
+	 * 商家注册时，查询商家输入的邮箱号是否已经被注册
 	 * 
-	 * @param info  传入买家输入的邮箱号
+	 * @param info  传入商家输入的邮箱号
 	 * @return   返回    可注册，手机号已存在或未知错误
 	 */
-	@RequestMapping("buyerAccountEmailExise")
+	@RequestMapping("sellerAccountEmailExise")
 	@ResponseBody
 	public StringMsg accountEmailExise(BuyerUserInfo info , HttpSession session) {
 		String result= loginService.accountEmailExise(info);
@@ -153,12 +153,12 @@ public class BuyerLoginController {
 	}
 	
 	/**
-	 * 买家注册
+	 * 商家注册
 	 * 
-	 * @param info 传入买家输入的信息包括手机号码或邮箱号、密码
+	 * @param info 传入商家输入的信息包括手机号码或邮箱号、密码
 	 * @return  返回success或fail
 	 */
-	@RequestMapping("buyerSignup")
+	@RequestMapping("sellerSignup")
 	@ResponseBody
 	public StringMsg signup(BuyerUserInfo info) {
 		String result=loginService.signup(info); //接收到注册的结果
@@ -170,26 +170,25 @@ public class BuyerLoginController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("buyerToForgetPwd")
+	@RequestMapping("sellerToForgetPwd")
 	@ResponseBody
 	public String toForgetPwd(Model model) {
-		return "buyer/";
+		return "seller/";
 	}
 	
 	/**
 	 * 忘记密码——通过手机号找到用户名
-	 * @param buyerTel  传入买家输入的手机号
+	 * @param buyerTel  传入商家输入的手机号
 	 * @param session  将查询出的用户名存入session
 	 * @return  返回  手机号不存在(phoneNoExise)或手机号存在(phoneExise)
 	 */
-	@RequestMapping("buyerForgetPwdTelBack")
+	@RequestMapping("sellerForgetPwdTelBack")
 	@ResponseBody	
 	public StringMsg forgetTelBack(String buyerTel , HttpSession session) {		
 		String result="";
 		String username=loginService.findUsernameByTel(buyerTel);//根据手机号查询用户名
-		
-		if(username == null) {
-			result=Constants.PHONE_NO_EXISE;//买家输入的手机号不存在
+		if(username.equals("")) {
+			result=Constants.PHONE_NO_EXISE;//商家输入的手机号不存在
 		}else {
 			result=Constants.PHONE_EXISE;//手机号存在，可找回密码
 			session.setAttribute("forget", username); //将根据用户输入的手机号查询出的用户名存入session
@@ -200,17 +199,17 @@ public class BuyerLoginController {
 	
 	/**
 	 * 忘记密码——通过邮箱号找到用户名
-	 * @param buyerEmail  传入买家输入的邮箱号
+	 * @param buyerEmail  传入商家输入的邮箱号
 	 * @param session   根据邮箱号查询出用户名存入session中
 	 * @return  返回邮箱号存在(emailExise)或邮箱号不存在(inputEmailError)
 	 */
-	@RequestMapping("buyerForgetPwdEmailBack")
+	@RequestMapping("sellerForgetPwdEmailBack")
 	@ResponseBody
 	public StringMsg forgetEmailBack(String buyerEmail , HttpSession session) {
 		String result="";
 		String username=loginService.findUsernameByEmail(buyerEmail);
-		if(username== null) {
-			result=Constants.EMAIL_ERROR;//买家输入的邮箱号不存在
+		if(username.equals("")) {
+			result=Constants.EMAIL_ERROR;//商家输入的邮箱号不存在
 		}else {
 			result=Constants.EMAIL_EXISE;//邮箱号存在，可找回密码
 			session.setAttribute("forget", username); //将根据用户输入的邮箱号查询出的用户名存入session
@@ -220,14 +219,14 @@ public class BuyerLoginController {
 	
 	/**
 	 * 重置密码
-	 * @param info  传入买家输入的密码
-	 * @param session  传入买家存储的账号
+	 * @param info  传入商家输入的密码
+	 * @param session  传入商家存储的账号
 	 * @return  重置成功
 	 */
-	@RequestMapping("buyerForgetPwd")
+	@RequestMapping("sellerForgetPwd")
 	@ResponseBody
 	public StringMsg forgetPwd (BuyerUserInfo info ,HttpSession session) {
-		//获取买家输入的手机号或邮箱号
+		//获取商家输入的手机号或邮箱号
 		String account=(String) session.getAttribute("forget");
 		info.setUsername(account);
 		String result =loginService.forgetPwd(info);

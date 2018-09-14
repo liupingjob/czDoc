@@ -6,47 +6,47 @@
  
  
 	<select id="hasUserByAccont" parameterType="String" resultType="com.czsm.entity.buyer.BuyerUserInfo">
-		SELECT * FROM buyer_userinfo WHERE busername = #{_parameter}
+		SELECT * FROM buyer_userinfo WHERE username = #{_parameter}
 	</select>
 	<!-- 用户登录时查询用户名是否已存在 -->
 	<select id="usernameExise" parameterType="String" resultType="String">
-		select busername username from buyer_userinfo where busername=#{username} or btel=#{tel} or bemail=#{email}
+		select username from buyer_userinfo where username=#{username} or tel=#{tel} or email=#{email}
 	</select>
 	<!-- 根据用户名和密码查询用户 -->
 	<select id="findUserByUsername" parameterType="com.czsm.entity.buyer.BuyerUserInfo" resultType="com.czsm.entity.buyer.BuyerUserInfo" >
-		select * from buyer_userinfo where busername=#{username} and bpwd=#{pwd}
+		select userid , name, petname,sex, birthday,identity,job,address, tel, email, username, pwd,remark,createdate,updatedate from buyer_userinfo where username=#{username} and pwd=#{pwd}
 	</select>
 	<!-- 根据买家邮箱号查询 -->
 	<select id="findUserByEmail" parameterType="com.czsm.entity.buyer.BuyerUserInfo" resultType="com.czsm.entity.buyer.BuyerUserInfo" >
-		select * from buyer_userinfo where bemail=#{email} and bpwd=#{pwd}
+		select userid , name, petname,sex, birthday,identity,job,address,tel, email, username, pwd,remark,createdate,updatedate from buyer_userinfo where email=#{email} and pwd=#{pwd}
 	</select>
 	<!-- 根据买家手机号查询 -->
 	<select id="findUserByTel" parameterType="com.czsm.entity.buyer.BuyerUserInfo" resultType="com.czsm.entity.buyer.BuyerUserInfo">
-		select * from buyer_userinfo where btel=#{tel} and bpwd=#{pwd}
+		select userid,name,petname,sex,birthday,identity,job,address, tel, email, username, pwd,remark,createdate,updatedate from buyer_userinfo where tel=#{tel} and pwd=#{pwd}
 	</select>
 	<!-- 买家注册查询手机号是否已存在 -->
 	<select id="phoneExise" parameterType="String" resultType="String" >
-		select btel tel from buyer_userinfo where btel=#{_parameter}
+		select tel from buyer_userinfo where tel=#{_parameter}
 	</select>
 	<!-- 买家注册查询邮箱是否已注册 -->
 	<select id="EmailExise" parameterType="String" resultType="String">
-		select bemail email from buyer_userinfo where bemail=#{_parameter}
+		select  email from buyer_userinfo where email=#{_parameter}
 	</select>
 	<!-- 根据手机号码注册买家 -->
 	<insert id="signup" parameterType="com.czsm.entity.buyer.BuyerUserInfo">
-		insert into buyer_userinfo(bid,btel,busername,bpwd,bemail) values(buyer_userinfo_s.nextval,#{tel},#{username},#{pwd},#{email})
+		insert into buyer_userinfo(userid,tel,username,pwd,email,createdate) values(buyer_userinfo_s.nextval,#{tel},#{username},#{pwd},#{email},sysdate)
 	</insert>
 	<!-- 买家根据手机号找回用户名 -->
 	<select id="findUsernameByTel" parameterType="String" resultType="String">
-		select busername username from buyer_userinfo where btel=#{_parameter}
+		select  username from buyer_userinfo where tel=#{_parameter}
 	</select>
 	<!-- 买家根据邮箱号找回用户名 -->
 	<select id="findUsernameByEmail" parameterType="String" resultType="String" >
-		select busername username from buyer_userinfo where bemail=#{_parameter}
+		select  username from buyer_userinfo where email=#{_parameter}
 	</select>
 	<!-- 修改买家登录密码 -->
 	<update id="forgetPwd" parameterType="com.czsm.entity.buyer.BuyerUserInfo">
-		update buyer_userinfo set bpwd=#{pwd} where busername=#{username}
+		update buyer_userinfo set pwd=#{pwd} ,updatedate=sysdate where username=#{username}
 	</update>
 		
 	

@@ -83,7 +83,6 @@ public class SftpUtil {
 		}
 		Properties config = new Properties();
 		config.put("StrictHostKeyChecking", "no");
-		// TODO 移除kerberos验证方法
 		config.put("PreferredAuthentications", "publickey,keyboard-interactive,password");
 
 		session.setConfig(config);
@@ -200,7 +199,7 @@ public class SftpUtil {
 					+ cale.get(Calendar.SECOND);
 			ftp.sftp.rename("/root/czsm/czmailWeb.war", "/root/czsm/czmailWeb" + fileName + "_backup.war");
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		ftp.upload(linuxWarPath, warFileName, new FileInputStream(file));
 	}

@@ -17,4 +17,5 @@ public class Constants {
 	public final static String startRedisServer="kill -9 $(ps -ef|grep redis|grep -v grep|awk '{print $2}'); cd /usr/local/redis/ ; ./bin/redis-server ./redis.conf ;";
 	public final static String startZeekeeperServer="kill -9 $(ps -ef|grep zookeeper|grep -v grep|awk '{print $2}'); cd /opt/zookeeper-3.5.4-beta/bin/ ;  ./zkServer.sh start ;";
 	public final static String startKafkaServer="kill -9 $(ps -ef|grep kafka|grep -v grep|awk '{print $2}'); cd /opt/kafka_2.10-0.10.2.0/ ; nohup ./bin/kafka-server-start.sh config/server.properties ";
+	public static final String startSolrServer = "cd /opt/solr-7.3.1 ; bin/solr start -force; ";
 }

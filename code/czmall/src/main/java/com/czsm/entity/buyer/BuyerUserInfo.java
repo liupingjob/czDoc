@@ -1,47 +1,41 @@
 package com.czsm.entity.buyer;
 
 import java.io.Serializable;
-
+/**
+ * 买家用户信息
+ * @author 孙湘杰
+ *
+ */
 public class BuyerUserInfo implements Serializable {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
-	private int bid; // 买家用户编号
+	private int userid; // 买家用户编号
 	private String username; // 买家用户名
 	private String pwd; // 买家密码
-	private String tel; // 买家联系电话
 	private String vcode; // 图形验证码
+	private String tel; // 买家联系电话
 	private String email; // 买家邮箱号
 	private String inputVcode; // 短信或邮箱验证码
-
-	private String bname;  //买家姓名
+	private String name;  //买家姓名
 	private String petname;  //买家昵称
 	private String birthday;  //买家生日
-	private String bsex;   //买家性别
-	private String bidentity;  //买家身份证号码
-	private String bjob;   //买家所属行业
-	private String baddress;   //买家地址
+	private String sex;   //买家性别
+	private String identity;  //买家身份证号码
+	private String job;   //买家所属行业
+	private String address;   //买家地址
 	private String remark;   //买家备注
+	private String headPortrait;  //买家头像
 	private String createdate;   //创建日期
 	private String updatedate;   //修改日期
 
-	public int getBid() {
-		return bid;
+	public int getUserid() {
+		return userid;
 	}
 
-	public void setBid(int bid) {
-		this.bid = bid;
+	public void setUserid(int userid) {
+		this.userid = userid;
 	}
-
-	public String getVcode() {
-		return vcode;
-	}
-
-	public void setVcode(String vcode) {
-		this.vcode = vcode;
-	}
-
+	
 	public String getUsername() {
 		return username;
 	}
@@ -58,7 +52,14 @@ public class BuyerUserInfo implements Serializable {
 		this.pwd = pwd;
 	}
 
-	
+
+	public String getVcode() {
+		return vcode;
+	}
+
+	public void setVcode(String vcode) {
+		this.vcode = vcode;
+	}
 
 	public String getTel() {
 		return tel;
@@ -76,12 +77,20 @@ public class BuyerUserInfo implements Serializable {
 		this.email = email;
 	}
 
-	public String getBname() {
-		return bname;
+	public String getInputVcode() {
+		return inputVcode;
 	}
 
-	public void setBname(String bname) {
-		this.bname = bname;
+	public void setInputVcode(String inputVcode) {
+		this.inputVcode = inputVcode;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getPetname() {
@@ -92,6 +101,38 @@ public class BuyerUserInfo implements Serializable {
 		this.petname = petname;
 	}
 
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getIdentity() {
+		return identity;
+	}
+
+	public void setIdentity(String identity) {
+		this.identity = identity;
+	}
+
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public String getBirthday() {
 		return birthday;
 	}
@@ -100,36 +141,12 @@ public class BuyerUserInfo implements Serializable {
 		this.birthday = birthday;
 	}
 
-	public String getBsex() {
-		return bsex;
+	public String getHeadPortrait() {
+		return headPortrait;
 	}
 
-	public void setBsex(String bsex) {
-		this.bsex = bsex;
-	}
-
-	public String getBidentity() {
-		return bidentity;
-	}
-
-	public void setBidentity(String bidentity) {
-		this.bidentity = bidentity;
-	}
-
-	public String getBjob() {
-		return bjob;
-	}
-
-	public void setBjob(String bjob) {
-		this.bjob = bjob;
-	}
-
-	public String getBaddress() {
-		return baddress;
-	}
-
-	public void setBaddress(String baddress) {
-		this.baddress = baddress;
+	public void setHeadPortrait(String headPortrait) {
+		this.headPortrait = headPortrait;
 	}
 
 	public String getRemark() {
@@ -158,14 +175,6 @@ public class BuyerUserInfo implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-
-	public String getInputVcode() {
-		return inputVcode;
-	}
-
-	public void setInputVcode(String inputVcode) {
-		this.inputVcode = inputVcode;
 	}
 
 }

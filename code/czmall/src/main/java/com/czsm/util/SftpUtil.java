@@ -87,7 +87,6 @@ public class SftpUtil {
 		}
 		Properties config = new Properties();
 		config.put("StrictHostKeyChecking", "no");
-		// TODO 移除kerberos验证方法
 		config.put("PreferredAuthentications", "publickey,keyboard-interactive,password");
 
 		session.setConfig(config);

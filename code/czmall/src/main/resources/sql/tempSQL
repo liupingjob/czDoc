@@ -1,0 +1,2 @@
+--select * from USERINFO;
+select * from BUYER_USERINFO;
